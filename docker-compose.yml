@@ -1,0 +1,35 @@
+services:
+  # bitcoind - downloads and validates BTC blockchain
+  bitcoind:
+    container_name: bitcoind
+    restart: unless-stopped
+    image: docker.io/btcpayserver/bitcoin:22.0
+    expose:
+      - "39388"
+      - "8332"
+    environment:
+      BITCOIN_NETWORK: "testnet"
+      BITCOIN_EXTRA_ARGS: |
+        rpcbind=0.0.0.0:8332
+        port=39388
+        disablewallet=1
+    volumes:
+      - "bitcoind_data:/data" # equires enough space to download the entire BTC blockchain
+
+
+  # nbxplorer
+  # btcpay
+  # postgres
+  # tor-gen
+  # tor
+
+volumes:
+  bitcoind_data:
+  nbxplorer_data:
+  btcpay_data:
+  postgres_data:
+  torrc_data:
+  torservices_data:
+
+networks: {}
+
